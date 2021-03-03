@@ -38,6 +38,18 @@ class App extends Component {
     this.setState({ contacts: this.state.contacts.filter(e => e.id !== id) });
   };
 
+  componentDidMount() {
+    const contacts = localStorage.getItem('contacts');
+    const ParsedContacts = JSON.parse(contacts);
+    this.setState({ contacts: ParsedContacts });
+  }
+
+  componentDidUpdate() {
+    if (this.state.contacts !== this.setState.contacts) {
+      localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
+    }
+  }
+
   render() {
     const visibleContacts = this.handleFilterContacts();
     return (
